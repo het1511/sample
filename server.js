@@ -1,18 +1,23 @@
-/****************************************************************************************************
+/*********************************************************************************
 
-Author : Dhruv Jiten Patel
-Student ID : 104998232
-Course: WEB322
-Date: 2024/10/12
+WEB322 – Assignment 02
+I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source (including 3rd party web sites) or distributed to other students.
 
-*********************************************************************************************************/
+Name: Het Patel 
+Student ID: 171935224 
+Date: 02/06/2025
+Cyclic Web App URL: _______________________________________________________
+GitHub Repository URL: ______________________________________________________
+
+********************************************************************************/ 
+
 
 const contentService = require('./content-service');
 const express = require('express');
 const path = require('path');
 
 const app = express();
-const port = 3243;
+const port = 8080;
 
 app.use(express.static('public'));
 
@@ -37,9 +42,24 @@ contentService.initialize()
             res.sendFile(path.join(__dirname, 'views', 'about.html'));
         });
 
-        // Route for fetching all articles ('/articles')
-        app.get('/data/articles', (req, res) => {
-            contentService.getAllArticles()
+        app.get('/shop', (req, res) => {
+            res.sendFile(path.join(__dirname, 'views', 'shop.html'));
+        });
+
+        // Route for fetching shop ('/shop')
+        app.get('/data/shop', (req, res) => {
+            contentService.getAllItems()
+                .then((data) => {
+                    res.json(data);
+                })
+                .catch((err) => {
+                    res.json({ message: err });
+                });
+        });
+
+        // Route for fetching all items ('/items')
+        app.get('/items', (req, res) => {
+            contentService.getAllItems()
                 .then((data) => {
                     res.json(data);
                 })

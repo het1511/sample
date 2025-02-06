@@ -1,43 +1,34 @@
-/****************************************************************************************************
-
-Author : Dhruv Jiten Patel
-Student ID : 104998232
-Course: WEB322
-Date: 2024/10/12
-
-*********************************************************************************************************/
-
 const fs = require('fs');
 const path = require('path');
 
-let articles = [];
+let items = [];
 let categories = [];
 
 function initialize() {
     return new Promise((resolve, reject) => {
-        const articlesPath = path.join(__dirname, 'data', 'articles.json');
+        const itemsPath = path.join(__dirname, 'data', 'items.json');
         const categoriesPath = path.join(__dirname, 'data', 'categories.json');
 
-        // Check if articles.json exists
-        if (!fs.existsSync(articlesPath)) {
-            reject("Error: articles.json file does not exist in the data folder.");
+        // Check if items.json exists
+        if (!fs.existsSync(itemsPath)) {
+            reject("Error: items.json file does not exist in the data folder.");
             return;
         }
 
-        // Read articles.json
-        fs.readFile(articlesPath, 'utf8', (err, data) => {
+        // Read items.json
+        fs.readFile(itemsPath, 'utf8', (err, data) => {
             if (err) {
-                console.error("Error reading articles.json:", err.message);
-                reject("Unable to read articles.json");
+                console.error("Error reading items.json:", err.message);
+                reject("Unable to read items.json");
                 return;
             }
 
             try {
-                articles = JSON.parse(data); // Parse the JSON into the articles array
-                console.log("articles.json loaded successfully.");
+                items = JSON.parse(data); // Parse the JSON into the items array
+                console.log("items.json loaded successfully.");
             } catch (parseErr) {
-                console.error("Error parsing articles.json:", parseErr.message);
-                reject("Error parsing articles.json");
+                console.error("Error parsing items.json:", parseErr.message);
+                reject("Error parsing items.json");
                 return;
             }
 
@@ -71,12 +62,12 @@ function initialize() {
     });
 }
 
-function getAllArticles() {
+function getAllItems() {
     return new Promise((resolve, reject) => {
-        if (articles.length > 0) {
-            resolve(articles);
+        if (items.length > 0) {
+            resolve(items);
         } else {
-            reject("No articles found");
+            reject("No items found");
         }
     });
 }
@@ -93,6 +84,6 @@ function getCategories() {
 
 module.exports = {
     initialize,
-    getAllArticles,
+    getAllItems,
     getCategories
 };
