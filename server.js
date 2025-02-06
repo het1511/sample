@@ -42,12 +42,8 @@ contentService.initialize()
             res.sendFile(path.join(__dirname, 'views', 'about.html'));
         });
 
-        app.get('/shop', (req, res) => {
-            res.sendFile(path.join(__dirname, 'views', 'shop.html'));
-        });
-
         // Route for fetching shop ('/shop')
-        app.get('/data/shop', (req, res) => {
+        app.get('/shop', (req, res) => {
             contentService.getAllItems()
                 .then((data) => {
                     res.json(data);
